@@ -13,6 +13,13 @@ get_producer:
     mov dword[ds:producer+12], 0xa
 
 ;writing out    
+
+    mov edx, 10
+    mov ecx, prod_str
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+
     mov edx, 12
     mov ecx, producer
     mov ebx, 1
@@ -38,6 +45,7 @@ get_model:
 ;                      0011 1111 1111
 ; 0000 0000 0000 0000 0000 0000 0000 0000
 
+
     push eax
     and eax, 00F0h
 
@@ -55,6 +63,12 @@ get_model:
     mov [ds:hex_dec+1], al
 
 after_conv:
+
+    mov edx, 7
+    mov ecx, model_str
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
 
     mov edx, 2
     mov ecx, hex_dec
@@ -89,6 +103,12 @@ get_family_id:
     add eax, 0x30
     mov [ds:family], eax
 
+    mov edx, 8
+    mov ecx, family_str
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+
     mov edx, 1
     mov ecx, family
     mov ebx, 1
@@ -120,6 +140,12 @@ get_cpu_type:
     mov eax, [ds:type]
     add eax, 0x30
     mov [ds:type], eax
+
+    mov edx, 6
+    mov ecx, type_str
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
 
     mov edx, 1
     mov ecx, type
@@ -161,6 +187,11 @@ exit:
 
 
 section .data
+
+prod_str    db  'Producer: ' ;10
+model_str   db  'Model: ' ;7
+family_str  db  'Family: ' ;8
+type_str        db  'Type: ' ;6
 producer    times 13 db 0
 model  times 2 db 0
 family times 2 db 0
