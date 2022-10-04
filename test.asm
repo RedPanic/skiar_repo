@@ -140,6 +140,26 @@ exit:
     int 0x80
 
 
+;convert_to_ascii (unsingned int value)
+; convert_to_ascii:
+;     pop eax
+;     push ecx
+
+;     cmp al, 0xA
+;     jl add_offset
+;     mov ecx, 0x31
+;     mov [ds:hex_dec], ecx
+;     sub al, 0x09
+
+; add_offset:
+;     add al, 0x30
+;     mov [ds:hex_dec+1], al
+
+;     pop ecx
+;     ret
+
+
+
 section .data
 producer    times 13 db 0
 model  times 2 db 0
